@@ -16,7 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from projecttutorial import views  
+
 
 urlpatterns = [
     path('admin-panel/', admin.site.urls),
+    path('about-us/', views.aboutus),
+    path('home/', views.homepage),
+    path('course/', views.course),
+    path('dynamic-route1/<int:id>', views.dynamicroute1),
+    path('dynamic-route2/<str:string>', views.dynamicroute2),
+    path('dynamic-route3/<slug:data>', views.dynamicroute3),
 ]
