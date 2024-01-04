@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 def homepage(req):
@@ -27,3 +27,37 @@ def dynamicroute2(req, string):
 
 def dynamicroute3(req, data):
     return HttpResponse(f"Welcome to dynamicroute3! Data = {data}")
+
+def userform(req):
+    return render(req, 'form.html')
+
+def getdata(req):
+    try:
+        email=req.GET['email']
+        name=req.GET['name']
+        print(f"Name : {name}, Email: {email}")
+        email2=req.GET.get('email')
+        name2=req.GET.get('name')
+        
+        print(f" {email2} {name2}")
+        
+        return render(req, 'form.html')
+
+    except:
+        return HttpResponse("Something went wrong")
+    
+def postdata(req):
+    try:
+        email=req.POST['email']
+        name=req.POST['name']
+        print(f"Name : {name}, Email: {email}")
+        
+        email2=req.POST.get('email')
+        name2=req.POST.get('name')
+        
+        print(f" {email2} {name2}")
+        
+        return render(req, 'form.html')
+
+    except:
+        return HttpResponse("Something went wrong")

@@ -21,8 +21,11 @@ from projecttutorial import views
 
 urlpatterns = [
     path('admin-panel/', admin.site.urls),
-    path('about-us/', views.aboutus),
-    path('home/', views.homepage),
+    path('about-us/', views.aboutus,name="aboutus"),
+    path('home/', views.homepage, name="home"),
+    path('userform/', views.userform, name="userform"),
+    path('getdata/', views.getdata, name="getdata"),
+    path('postdata/', views.postdata, name="postdata"),
     path('course/', views.course),
     path('dynamic-route1/<int:id>', views.dynamicroute1),
     path('dynamic-route2/<str:string>', views.dynamicroute2),

@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
-</head>
-<body>
-    <h3 style="background-color: brown;">Hello World! Django Tutorials</h3>
-    <h4>Hello {{username}}</h4>
-    <h4>Course List</h4>
-    <ul>
+ {% extends "base.html" %}  
+ {% block content %}
+
+ 
+<a href="{% url 'aboutus' %}">About us</a>
+
+   <h4 class="chnagecolor">Course List</h4>
+    <ul class="{% if request.path == '/home/' %}active{% endif %}">
         {% for n in clist %}
         <li>{{clist}} : {{n}}</li>
         {% endfor %}
@@ -17,10 +13,15 @@
 
     <h5>Student list</h5>
     <ol>
-        {% for n in studentlist %}
-        <li>Name : {{n.name}} Ph No: {{n.phone}} </li>
-        {% endfor %}
+        {% if studentlist|length > 0 %}
+            {% for n in studentlist %}
+                {% if n.name == "Shubham" %}
+                <li>Name : {{n.name}} Ph No: {{n.phone}} </li>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            No Data Found!
+        {% endif %}
     </ol>
-    
-</body>
-</html>
+
+    {% endblock content %}
