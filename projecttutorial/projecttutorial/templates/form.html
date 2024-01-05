@@ -4,6 +4,7 @@
 <!-- <form action="{% url 'getdata' %}" method="get"> -->
 <form action="{% url 'postdata' %}" method="post">
     {% csrf_token %}
+    {{form}}
     <input type="email" name="email" id="email" placeholder="email">
     <input type="text" name="name" id="name" placeholder="name">
     <button type="submit">Submit</button>

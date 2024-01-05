@@ -1,6 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
+from .forms import UserForm
+
+
 def homepage(req):
     # passing the data mustbe json format of dict
     data={
@@ -31,6 +34,43 @@ def dynamicroute3(req, data):
 def userform(req):
     return render(req, 'form.html')
 
+def djangoform(req):
+    fm = UserForm()
+    return render(req, 'form.html', {"form": fm})
+
+def simpleCalculator(req):
+    data ={}
+    try:
+        if req.method == "POST":
+            n1=int(req.POST["num1"])
+            n2=int(req.POST["num2"])
+            opr = req.POST["operator"]
+            output=0
+            print(n1 , opr, n2)
+            if opr == "+":
+                output = n1+n2
+            elif opr == "-":
+                output = n1-n2
+            elif opr == "x":
+                output = n1*n2
+            elif opr == "/":
+                output = n1/n2
+            else:
+                print("Wrong operator!")
+                pass
+            data={
+                "num1":n1,
+                "num2":n2,
+                "output":output
+            }
+        pass
+    except:
+        print("Something Went Wrong!")
+        pass
+    
+    
+    return render(req, 'calculator.html', data)
+
 def getdata(req):
     try:
         email=req.GET['email']
@@ -46,7 +86,7 @@ def getdata(req):
     except:
         return HttpResponse("Something went wrong")
     
-def postdata(req):
+def postdata(req):  
     try:
         email=req.POST['email']
         name=req.POST['name']
@@ -61,3 +101,35 @@ def postdata(req):
 
     except:
         return HttpResponse("Something went wrong")
+    
+def marksheet(req):
+    data ={}
+    try:
+        if req.method == "POST":
+            s1=int(req.POST["s1"])
+            s2=int(req.POST["s2"])
+            s3=int(req.POST["s3"])
+            s4=int(req.POST["s4"])
+            s5=int(req.POST["s5"])
+            s6=int(req.POST["s6"])
+            
+            total = s1+s2+s3+s4+s5+s6
+            percentage = round(total/6, 2)
+            
+            data={
+                "s1":s1,
+                "s2":s2,
+                "s3":s3,
+                "s4":s4,
+                "s5":s5,
+                "s6":s6,
+                "total":total,
+                "percentage":percentage,
+            }
+        pass
+    except:
+        print("Something Went Wrong!")
+        pass
+    return render(req, 'marksheet.html', data)
+
+

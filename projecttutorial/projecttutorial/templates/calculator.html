@@ -1,0 +1,22 @@
+{% extends "base.html" %}  
+{% block content %}
+
+<!-- <form action="{% url 'getdata' %}" method="get"> -->
+<form method="post">
+    {% csrf_token %}
+    <input type="number" id="num1" name="num1" value="{{num1}}">
+    <select id="operator" name="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="x">x</option>
+        <option value="/">/</option>
+      </select>
+    <input type="number" id="num2" name="num2" value="{{num2}}">
+    <button type="submit">Calculate</button>
+    <button type="reset">Reset</button>
+    <br />
+    <Label style="margin-top: 10px;">Output : </Label><input style="margin-top: 10px;" type="text" value="{{output}}">
+</form>
+
+
+{% endblock content %}

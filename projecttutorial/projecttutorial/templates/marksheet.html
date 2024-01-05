@@ -1,0 +1,22 @@
+{% extends "base.html" %}  
+{% block content %}
+
+<!-- <form action="{% url 'getdata' %}" method="get"> -->
+<form method="post">
+    {% csrf_token %}
+    <input type="number" id="num1" name="s1" value="{{s1}}" placeholder="subject1">
+    <input type="number" id="num2" name="s2" value="{{s2}}" placeholder="subject2">
+    <input type="number" id="num3" name="s3" value="{{s3}}" placeholder="subject3">
+    <input type="number" id="num4" name="s4" value="{{s4}}" placeholder="subject4">
+    <input type="number" id="num5" name="s5" value="{{s5}}" placeholder="subject5">
+    <input type="number" id="num6" name="s6" value="{{s6}}" placeholder="subject6">
+    <button type="submit">Calculate</button>
+    <button type="reset">Reset</button>
+    <input type="number" id="total" name="total" value="{{total}}" placeholder="total">
+    <input type="number" id="percentage" name="percentage" value="{{percentage}}" placeholder="percentage">
+    <br />
+    <Label style="margin-top: 10px;">Output : </Label><input style="margin-top: 10px;" type="text" value="{{output}}">
+</form>
+
+
+{% endblock content %}
