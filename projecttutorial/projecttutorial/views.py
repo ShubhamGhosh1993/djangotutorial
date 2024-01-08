@@ -1,10 +1,15 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from services.models import Services
 
 from .forms import UserForm
 
 
 def homepage(req):
+    #service models data
+    servicesData = Services.objects.all().order_by("-service_title")[1:2]
+    #use - sign in front columns name to ascending or descendending order
+    
     # passing the data mustbe json format of dict
     data={
         "title": "Django tutorials",
@@ -12,7 +17,8 @@ def homepage(req):
         "clist":["PHP", "JAVA", "Python", "Django"],
         "studentlist":[
             {"name":"Shubham", "phone":"98956565654"},
-            {"name":"Sayan", "phone":"89656474974"}]
+            {"name":"Sayan", "phone":"89656474974"}],
+        "services": servicesData
     }
     return render(req,'index.html',data)
 

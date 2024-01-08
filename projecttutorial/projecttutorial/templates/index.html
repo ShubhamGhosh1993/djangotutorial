@@ -23,5 +23,9 @@
             No Data Found!
         {% endif %}
     </ol>
+    {% for n in services %}
+    <li>Service Icon: {{n.service_icon}}, Service Title: {{n.service_title}}</li>
+    <li>Service Description: {{n.service_desc}}</li>
+    {% endfor %}
 
     {% endblock content %}
