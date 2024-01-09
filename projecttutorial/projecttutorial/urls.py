@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from projecttutorial import views  
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -33,4 +35,8 @@ urlpatterns = [
     path('dynamic-route1/<int:id>', views.dynamicroute1),
     path('dynamic-route2/<str:string>', views.dynamicroute2),
     path('dynamic-route3/<slug:data>', views.dynamicroute3),
+    path('newsdetails/<int:news_id>', views.newsdetails),
 ]
+
+if settings.DEBUG:
+    urlpatterns+=static(settings.MEDIA_URLS, document_root = settings.MEDIA_ROOTS)

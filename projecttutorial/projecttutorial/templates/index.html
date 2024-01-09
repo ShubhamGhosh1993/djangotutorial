@@ -1,6 +1,10 @@
  {% extends "base.html" %}  
  {% block content %}
-
+<marquee behavior="" direction="" onmouseover="stop()" onmouseout="start()">
+    {% for n in newsdata %}
+        {{n.news_title}} : {{n.news_desc | safe}}
+    {% endfor %}
+</marquee>
  
 <a href="{% url 'aboutus' %}">About us</a>
 
@@ -28,4 +32,18 @@
     <li>Service Description: {{n.service_desc}}</li>
     {% endfor %}
 
+    {% if services.has_previous%}
+    <a href="/home?page=1">First</a>
+    <a href="/home?page={{services.previous_page_number}}">Previous</a>
+    {% endif %}
+    
+    {% for n in totalPageList%}
+    <a href="/home?page={{n}}">{{n}}</a>
+    {% endfor %}
+    
+
+    {% if services.has_next%}
+    <a href="/home?page={{lastpage}}">Last</a>
+    <a href="/home?page={{services.next_page_number}}">Next</a>
+    {% endif %}
     {% endblock content %}

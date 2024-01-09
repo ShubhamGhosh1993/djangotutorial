@@ -1,15 +1,22 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from services.models import Services
+from news.models import News
+from enquiry.models import Enquiry
 
 from .forms import UserForm
 
 
 def homepage(req):
     #service models data
-    servicesData = Services.objects.all().order_by("-service_title")[1:2]
+    servicesData = Services.objects.all().order_by("-service_title")
+    newsdata = News.objects.all().order_by("news_title")
     #use - sign in front columns name to ascending or descendending order
-    
+    pagination = Paginator(servicesData,2)
+    pageNo = req.GET.get("page")
+    servicesDataFinal = pagination.get_page(pageNo)
+    totalpage = servicesDataFinal.paginator.num_pages
     # passing the data mustbe json format of dict
     data={
         "title": "Django tutorials",
@@ -18,12 +25,24 @@ def homepage(req):
         "studentlist":[
             {"name":"Shubham", "phone":"98956565654"},
             {"name":"Sayan", "phone":"89656474974"}],
-        "services": servicesData
+        "services": servicesDataFinal,
+        "lastpage":totalpage,
+        "totalPageList": [n+1 for n in range(totalpage)],
+        "newsdata": newsdata
     }
     return render(req,'index.html',data)
 
 def aboutus(req):
     return HttpResponse("Welcome to django!")
+
+def newsdetails(req, news_id):
+    print(id)
+    newsdata = News.objects.get(id=news_id)
+    # newsdata = News.objects.filter(id=news_id)
+    data={
+        "newsdata":newsdata
+    }
+    return render(req, "newsdetails.html", data)
 
 def course(req):
     return HttpResponse("Welcome to Course!")
@@ -98,11 +117,12 @@ def postdata(req):
         name=req.POST['name']
         print(f"Name : {name}, Email: {email}")
         
-        email2=req.POST.get('email')
-        name2=req.POST.get('name')
-        
-        print(f" {email2} {name2}")
-        
+        # email2=req.POST.get('email')
+        # name2=req.POST.get('name')
+        #insert query
+        en = Enquiry(enquiry_title = email, enquiry_desc= name)
+        en.save()
+        print("Submition Successfull")
         return render(req, 'form.html')
 
     except:
